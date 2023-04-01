@@ -18,8 +18,8 @@ export class FetchData extends Component {
         <thead>
           <tr>
             <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
             <th>Summary</th>
           </tr>
         </thead>
@@ -27,8 +27,8 @@ export class FetchData extends Component {
           {forecasts.map(forecast =>
             <tr key={forecast.date}>
               <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
+              <td>{forecast.latitude}</td>
+              <td>{forecast.longitude}</td>
               <td>{forecast.summary}</td>
             </tr>
           )}
@@ -44,7 +44,7 @@ export class FetchData extends Component {
 
     return (
       <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
+        <h1 id="tabelLabel" >Frog details</h1>
         <p>This component demonstrates fetching data from the server.</p>
         {contents}
       </div>
@@ -52,7 +52,7 @@ export class FetchData extends Component {
   }
 
   async populateWeatherData() {
-    const response = await fetch('weatherforecast');
+    const response = await fetch('froglocation');
     const data = await response.json();
     this.setState({ forecasts: data, loading: false });
   }
