@@ -5,14 +5,14 @@ export class FetchData extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+    this.state = { frogs: [], loading: true };
   }
 
   componentDidMount() {
     this.populateWeatherData();
   }
 
-  static renderForecastsTable(forecasts) {
+  static renderfrogsTable(frogs) {
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
@@ -24,12 +24,12 @@ export class FetchData extends Component {
           </tr>
         </thead>
         <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.latitude}</td>
-              <td>{forecast.longitude}</td>
-              <td>{forecast.summary}</td>
+          {frogs.map(frog =>
+            <tr key={frog.date}>
+              <td>{frog.date}</td>
+              <td>{frog.latitude}</td>
+              <td>{frog.longitude}</td>
+              <td>{frog.summary}</td>
             </tr>
           )}
         </tbody>
@@ -40,7 +40,7 @@ export class FetchData extends Component {
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+      : FetchData.renderfrogsTable(this.state.frogs);
 
     return (
       <div>
@@ -54,6 +54,6 @@ export class FetchData extends Component {
   async populateWeatherData() {
     const response = await fetch('froglocation');
     const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+    this.setState({ frogs: data, loading: false });
   }
 }
