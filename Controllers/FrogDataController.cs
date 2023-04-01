@@ -4,30 +4,35 @@ namespace FrogBook.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class FrogLocationController : ControllerBase
+    public class FrogDataController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
             "Hopping", "Catching flies", "Sunbathing", "Swimming", "Frog misc."
         };
 
-        private readonly ILogger<FrogLocationController> _logger;
+        private static readonly string[] Status = new[]
+{
+            "Safe", "Safe", "Safe", "Escaping"
+        };
 
-        public FrogLocationController(ILogger<FrogLocationController> logger)
+        private readonly ILogger<FrogDataController> _logger;
+
+        public FrogDataController(ILogger<FrogDataController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        public IEnumerable<FrogLocation> Get()
+        public IEnumerable<FrogData> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new FrogLocation
+            return Enumerable.Range(1, 5).Select(index => new FrogData
             {
                 Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
                 Latitude = Random.Shared.Next(-90, 90),
                 Longitude = Random.Shared.Next(-180, 180),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)],
+                Status = Status[Random.Shared.Next(Status.Length)]
             })
             .ToArray();
         }
