@@ -24,9 +24,11 @@ export class NavMenu extends Component {
   render() {
     return (
       <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
-          <NavbarBrand tag={Link} to="/">FrogBook</NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+          <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
+                <div>
+                    <img src="/favicon.ico" className="logo" />
+                    <NavbarBrand tag={Link} to="/">FrogBook</NavbarBrand>
+            </div>
         </Navbar>
       </header>
     );

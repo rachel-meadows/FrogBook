@@ -20,7 +20,7 @@ export class FetchData extends Component {
             <th>Date</th>
             <th>Latitude</th>
             <th>Longitude</th>
-            <th>Summary</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -40,11 +40,10 @@ export class FetchData extends Component {
     static renderfrogAlerts(frogs) {
         return (
             <>
+                <br/>
                 {frogs.filter(frog => frog.status == "Escaping").map(escapingFrog => (
                     <div className="alert">
-                        <p>
-                            There is an escaping frog at coordinates <em>{escapingFrog.latitude}, {escapingFrog.longitude}</em>!
-                        </p>
+                        There is an escaping frog at coordinates <em>{escapingFrog.latitude}, {escapingFrog.longitude}</em>!
                     </div>
                 ))}
             </>

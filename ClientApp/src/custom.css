@@ -16,6 +16,11 @@ code {
 .alert {
     background-color: #df000085;
     padding: 10px;
-    display: flex;
-    justify-content: center;
+    text-justify: left;
+    max-width: 500px;
+}
+
+.logo {
+    margin-right: 20px;
+    border-radius: 50px;
 }
