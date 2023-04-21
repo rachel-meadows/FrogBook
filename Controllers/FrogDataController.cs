@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Data.SqlTypes;
 
 namespace FrogBook.Controllers
@@ -28,7 +29,13 @@ namespace FrogBook.Controllers
         [HttpGet]
         public IEnumerable<FrogData> Get()
         {
+            _logger.LogDebug("Searching for frogs in database (and definitely not just randomly generating them!");
+            _logger.LogTrace("Frog {randomId} is currently at latitude {randomLat} and longitude {randomLong}", 
+                 Guid.NewGuid(), 
+                 Random.Shared.Next(-90, 90), 
+                 Random.Shared.Next(-180, 180));
             RandomlyChooseLogEvent(_logger);
+
             return Enumerable.Range(1, 5).Select(index => new FrogData
             {
                 ID = Guid.NewGuid(),
