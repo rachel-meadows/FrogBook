@@ -10,7 +10,7 @@ export class FetchData extends Component {
 
   componentDidMount() {
     this.populateFrogData();
-  }
+    }
 
   static renderfrogsTable(frogs) {
     return (
@@ -35,7 +35,7 @@ export class FetchData extends Component {
         </tbody>
       </table>
     );
-    }
+  }
 
     static renderfrogAlerts(frogs) {
         return (
@@ -50,6 +50,17 @@ export class FetchData extends Component {
         );
     }
 
+    updateFrogData = async () => {
+        await this.populateFrogData();
+    }
+
+    async populateFrogData() {
+        const response = await fetch('frogdata');
+        const data = await response.json();
+        this.setState({ frogs: data, loading: false });
+    }
+
+
     render() {
         let frogAlerts = this.state.loading
             ? <p></p>
@@ -61,16 +72,11 @@ export class FetchData extends Component {
 
     return (
       <div>
-      <h1 id="tabelLabel" >Frog details</h1>
+      <h1 id="tabelLabel">Frog details</h1>
             {frogAlerts}
             {frogTable}
+            <button onClick={this.updateFrogData}>Update</button>
       </div>
     );
-  }
-
-  async populateFrogData() {
-    const response = await fetch('frogdata');
-    const data = await response.json();
-    this.setState({ frogs: data, loading: false });
   }
 }
