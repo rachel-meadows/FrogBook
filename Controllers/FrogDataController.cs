@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Data.SqlTypes;
 
 namespace FrogBook.Controllers
 {
@@ -26,8 +28,10 @@ namespace FrogBook.Controllers
         [HttpGet]
         public IEnumerable<FrogData> Get()
         {
+            RandomlyChooseLogEvent(_logger);
             return Enumerable.Range(1, 5).Select(index => new FrogData
             {
+                ID = Guid.NewGuid(),
                 Date = DateTime.Now.AddDays(index),
                 Latitude = Random.Shared.Next(-90, 90),
                 Longitude = Random.Shared.Next(-180, 180),
@@ -35,6 +39,30 @@ namespace FrogBook.Controllers
                 Status = Status[Random.Shared.Next(Status.Length)]
             })
             .ToArray();
+        }
+
+        private static void RandomlyChooseLogEvent(ILogger logger)
+        {
+            string[] logOptions = new string[] { "information", "warning", "error", "critical" };
+            string logOption = logOptions[new Random().Next(logOptions.Length)];
+
+            switch (logOption)
+            {
+                case "information":
+                    logger.LogInformation($"Frog {Guid.NewGuid()} changed activity from hopping to eating flies");
+                    break;
+                case "warning":
+                    logger.LogWarning($"Frog {Guid.NewGuid()} has been inactive for more than 10 seconds");
+                    break;
+                case "error":
+                    logger.LogError(new SqlNullValueException(), "Failed to save changes to database: Activity cannot be null.");
+                    break;
+                case "critical":
+                    logger.LogCritical("Unable to establish a connection to the FrogBook database. Check the connection string and network connectivity immediately!");
+                    break;
+                default:
+                    return;
+            }
         }
     }
 }

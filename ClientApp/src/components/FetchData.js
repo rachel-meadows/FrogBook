@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 export class FetchData extends Component {
-  static displayName = FetchData.name;
+    static displayName = FetchData.name;
+    ILogger<FrogController> logger;
 
   constructor(props) {
     super(props);
@@ -12,7 +13,8 @@ export class FetchData extends Component {
     this.populateFrogData();
     }
 
-  static renderfrogsTable(frogs) {
+    static renderfrogsTable(frogs) {
+    logger.LogTrace(`Frog ${frog.ID} is currently at latitude ${frog.latitude} and longitude ${frog.longitude}`);
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
@@ -51,6 +53,7 @@ export class FetchData extends Component {
     }
 
     updateFrogData = async () => {
+        logger.LogDebug("Searching for frogs in database (and definitely not just randomly generating them!");
         await this.populateFrogData();
     }
 
